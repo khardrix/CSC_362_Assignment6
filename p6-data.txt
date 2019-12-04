@@ -1,0 +1,13 @@
+	char *names[SIZE]={"Vase","Bowling_ball","Book","Umbrella", "Gold_medal", "Speaker_1", "Walkman", "Speaker_2"};
+	double weights[]={.5, .9, .3, .4, .7, .4, .2, .4};
+	
+	char *names[SIZE]={"Small_dog", "Moose_skull", "Squirrel", "Mouse", "Goldfish", "Snake", "Human_finger", "Pig_head", 
+		"Eagle_feather", "Shark_tooth", "Camel_hump", "Crocodile", "Elephant_tusk", "Cat", "Horse_manure", "Monkey_hand", 
+		"Octopus_eye", "Sheep_coat", "Bat", "Chicken_wing"};
+	double weights[]={.63, .25, .41, .15, .06, .52, .09, .39, .02, .11, .24, .94, .63, .28, .04, .21, .05, .33, .42, .12};
+	
+	char *names[SIZE]={"Computer Organization", "Internet_Infrastructure", "The_History_Of_The_Universe", 				"Linux_with_Operating_Systems_Concepts", "C_Programming", "Statistics", "English_For_Dummies", "American_History_2000-", 
+		"Computer_Architecture", "Hitchhiker's_Guide", "English-Minbari_Dictionary", "Zen_and_the_Art_of_Programming", 
+		"The_Joy_of_Cooking", "Heart_of_Darkness", "Cincinnati_Yellow_Pages", "Artificial_Intelligence", 
+		"Business_Programming:__Why?", "The_History_of_Ohio_State_Buckeyes"};
+	double weights[]={.75, .62, .27, .78, .21, .41, .55, .20, .90, .23, .42, .33, .56, .18, .98, .32, .12, .82};

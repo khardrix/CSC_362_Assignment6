@@ -122,5 +122,17 @@ void traverse(struct bin printBins[]) {
 
 void printBin(int binNumber, double remainingCapacity, struct node* f) {
 	printf("Bin %d (%.2f remaining): ", binNumber, remainingCapacity);
+
+	if (f != NULL) {
+		struct node* current = f;
+		struct node* previous = NULL;
+		previous->next = current;
+		
+		while (previous->next != NULL) {
+			printf("%s (%.2f), ", current->item, current->weight);
+			previous = current;
+			current = current->next;
+		}
+	}
 }
 

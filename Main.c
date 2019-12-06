@@ -6,7 +6,9 @@
 
 
 /* ----------------------------------------------- FUNCTION PROTOTYPES ---------------------------------------------- */
-struct node* orderedInsert(struct node*, double);     // insert receives front pointer and new datum to insert in proper location
+struct node* orderedInsert(struct node*, double, char*);     // insert receives front pointer and new datum to insert in proper location
+void printBin(int, double, struct node*);
+void traverse(struct bin[]);
 /* ------------------------------------------- END OF FUNCTION PROTOTYPES ------------------------------------------- */
 
 
@@ -47,21 +49,15 @@ void main() {
 	int i = 0, j = 0;
 
 	int isPlaced = 0;
-
-	// int variable to store the lenght of the array
-	int binArrayLength;
 	/* -------------------------------------- END OF VARIABLE DECLARATIONS ---------------------------------------- */
-
-
-	
-
-	binArrayLength = sizeof(bins) / sizeof(struct bin); // FOR TESTING! CAN REMOVE!
 
 
 	for (i = 0; i < 20; i++) {
 		bins[i].capacity = 1.0;
 		bins[i].list = NULL;
 	}
+
+	traverse(bins);
 
 	// j++;
 
@@ -71,7 +67,8 @@ void main() {
 
 		while (isPlaced == 0) {
 			if (weights[i] < bins[j].capacity + .001) {
-				bins[i].list = orderedInsert(bins[j].list, weights[i]);
+				bins[j].capacity -= weights[i];
+				bins[i].list = orderedInsert(bins[j].list, weights[i], names[i]);
 				isPlaced = 1;
 			}
 			else {
@@ -84,13 +81,15 @@ void main() {
 
 // insert new value x into a node at the end of the list, this is far less efficient than the previous
 // unordered list where we inserted at the beginning
-struct node* orderedInsert(struct node* f, double itemWeight){
+struct node* orderedInsert(struct node* f, double itemWeight, char *itemName){
+	
 	struct node* temp, * current, * previous;  // temp will point to new node, current and previous used to traverse list
 	temp = (struct node*)malloc(sizeof(struct node));      // allocate a node from heap
-	temp->data = x;                 // assign the new node its value
+	temp->weight = itemWeight;                 // assign the new node its value
+	temp->item = itemName;
 	temp->next = NULL;              // and it will be the current last node, so make next NULL
 	if (f == NULL) return temp;     // special case of empty list, no list to traverse
-	else if (x < f->data)           // special case 2:  if new node should be inserted at front
+	else if (strcmp(f->item, itemName) > 0)           // special case 2:  if new node should be inserted at front
 	{
 		temp->next = f;           // let new node point at rest of list
 		return temp;            // and return new node's pointer as new front of the list
@@ -99,8 +98,7 @@ struct node* orderedInsert(struct node* f, double itemWeight){
 	{
 		current = f;              // initialize our two pointers to work down the list, current always
 		previous = NULL;          // pointing at current node while previous points at its predecessor
-		while (current != NULL && current->data < x)  // traverse list until we either reach the end of find the right location
-		{
+		while (current != NULL && strcmp(f->item, itemName) < 0){  // traverse list until we either reach the end of find the right location
 			previous = current;            // previous always points at prior node
 			current = current->next;       // current points at node we are inspecting
 		}
@@ -109,3 +107,20 @@ struct node* orderedInsert(struct node* f, double itemWeight){
 		return f;               // return the front pointer so that we can reattach list in main
 	}
 }
+
+
+void traverse(struct bin printBins[]) {
+	int i = 0;
+	// int binArrayLength = sizeof(*printBins) / sizeof(struct bin);
+
+	for (; i < 20; i++) {
+		printBin(i, printBins[i].capacity, printBins[i].list);
+		printf("\n");
+	}
+}
+
+
+void printBin(int binNumber, double remainingCapacity, struct node* f) {
+	printf("Bin %d (%.2f remaining): ", binNumber, remainingCapacity);
+}
+

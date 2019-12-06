@@ -19,7 +19,7 @@ struct bin {
 };
 
 struct node {
-	char item[40];
+	char* item;
 	double weight;
 	struct node* next;
 };
@@ -82,11 +82,11 @@ void main() {
 
 // insert new value x into a node at the end of the list, this is far less efficient than the previous
 // unordered list where we inserted at the beginning
-struct node* orderedInsert(struct node* f, double itemWeight, char *itemName){
+struct node* orderedInsert(struct node* f, double itemWeight, char* itemName){
 	
 	struct node* temp, * current, * previous;  // temp will point to new node, current and previous used to traverse list
 	temp = (struct node*)malloc(sizeof(struct node));      // allocate a node from heap
-	temp->weight = itemWeight;                 // assign the new node its value
+	temp->weight = itemWeight;                // assign the new node its value
 	temp->item = itemName;
 	temp->next = NULL;              // and it will be the current last node, so make next NULL
 	if (f == NULL) return temp;     // special case of empty list, no list to traverse

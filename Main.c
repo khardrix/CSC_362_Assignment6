@@ -81,30 +81,30 @@ void main() {
 
 // insert new value x into a node at the end of the list, this is far less efficient than the previous
 // unordered list where we inserted at the beginning
-struct node* orderedInsert(struct node* f, double itemWeight, char* itemName){
+struct node* orderedInsert(struct node* head, double itemWeight, char* itemName){
 	
 	struct node* temp, * current, * previous;  // temp will point to new node, current and previous used to traverse list
 	temp = (struct node*)malloc(sizeof(struct node));      // allocate a node from heap
 	temp->weight = itemWeight;                // assign the new node its value
 	temp->item = itemName;
 	temp->next = NULL;              // and it will be the current last node, so make next NULL
-	if (f == NULL) return temp;     // special case of empty list, no list to traverse
-	else if (strcmp(f->item, itemName) > 0)           // special case 2:  if new node should be inserted at front
+	if (head == NULL) return temp;     // special case of empty list, no list to traverse
+	else if (strcmp(head->item, itemName) > 0)           // special case 2:  if new node should be inserted at front
 	{
-		temp->next = f;           // let new node point at rest of list
+		temp->next = head;           // let new node point at rest of list
 		return temp;            // and return new node's pointer as new front of the list
 	}
 	else                         // have to traverse list until we have a pointer at the last node
 	{
-		current = f;              // initialize our two pointers to work down the list, current always
+		current = head;              // initialize our two pointers to work down the list, current always
 		previous = NULL;          // pointing at current node while previous points at its predecessor
-		while (current != NULL && strcmp(f->item, itemName) < 0){  // traverse list until we either reach the end of find the right location
+		while (current != NULL && strcmp(head->item, itemName) < 0){  // traverse list until we either reach the end of find the right location
 			previous = current;            // previous always points at prior node
 			current = current->next;       // current points at node we are inspecting
 		}
 		previous->next = temp;      // attach new node to list by having previous point at it
 		temp->next = current;       // and reattach rest of list to temp's next field
-		return f;               // return the front pointer so that we can reattach list in main
+		return head;               // return the front pointer so that we can reattach list in main
 	}
 }
 
@@ -127,15 +127,15 @@ void traverse(struct bin printBins[]) {
 }
 
 
-void printBin(int binNumber, double remainingCapacity, struct node* f) {
+void printBin(int binNumber, double remainingCapacity, struct node* head) {
 	printf("Bin %d (%.2f remaining): ", binNumber, remainingCapacity);
 
-	if (f != NULL) {
-		struct node* current = f;
+	if (head != NULL) {
+		struct node* current = head;
 		struct node* previous = NULL;
-		previous->next = current;
+		// previous->next = current;
 		
-		while (previous->next != NULL) {
+		while (current != NULL) {
 			printf("%s (%.2f), ", current->item, current->weight);
 			previous = current;
 			current = current->next;
@@ -143,14 +143,14 @@ void printBin(int binNumber, double remainingCapacity, struct node* f) {
 	}
 }
 
-void destroy(struct node* f)                // deallocate all heap memory
+void destroy(struct node* head)                // deallocate all heap memory
 {
-	struct node* temp = f;                   // need a temp pointer as one pointer will point to next
-	while (f != NULL)                         // while we still have list nodes to deallocate
+	struct node* temp = head;                   // need a temp pointer as one pointer will point to next
+	while (head != NULL)                         // while we still have list nodes to deallocate
 	{
-		f = f->next;                        // f now points to the next node in the list
+		head = head->next;                        // f now points to the next node in the list
 		free(temp);                       // so we can deallocate the current node
-		temp = f;
+		temp = head;
 	}
 }
 

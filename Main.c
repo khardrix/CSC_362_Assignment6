@@ -4,15 +4,6 @@
 #include <string.h>
 #define SIZE 8
 
-
-/* ----------------------------------------------- FUNCTION PROTOTYPES ---------------------------------------------- */
-struct node* orderedInsert(struct node*, double, char*);     // insert receives front pointer and new datum to insert in proper location
-void printBin(int, double, struct node*);
-void traverse(struct bin[]);
-void destroy(struct node*);
-/* ------------------------------------------- END OF FUNCTION PROTOTYPES ------------------------------------------- */
-
-
 struct bin {
 	double capacity;
 	struct node* list; // struct node* front;
@@ -23,6 +14,14 @@ struct node {
 	double weight;
 	struct node* next;
 };
+
+/* ----------------------------------------------- FUNCTION PROTOTYPES ---------------------------------------------- */
+struct node* orderedInsert(struct node*, double, char*);
+void printBin(int, double, struct node*);
+void traverse(struct bin[]);
+void destroy(struct node*);
+/* ------------------------------------------- END OF FUNCTION PROTOTYPES ------------------------------------------- */
+
 
 void main() {
 
@@ -121,7 +120,7 @@ void traverse(struct bin printBins[]) {
 		}
 	}
 
-	for (i = 0; i < j; i++) {
+	for (i = 0; i < 20; i++) {
 		printBin(i, printBins[i].capacity, printBins[i].list);
 		printf("\n");
 	}
